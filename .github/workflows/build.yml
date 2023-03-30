@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: build gradle project step
         id: build
-        uses: /gradle-github-action@v1
+        uses: gradle/gradle-github-action@v2
         with:
           option: '--no-build-cache'
       # Use the output from the build step to upload the jar file
