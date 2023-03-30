@@ -1,23 +1,18 @@
 on:
   push:
 
-jobs:
-  gradle_build_job:
+jobs:   
+  gradle:
     runs-on: ubuntu-latest
-    name: Build the gradle project
     steps:
-      - uses: actions/checkout@v3
-      - name: build gradle project step
-        id: build
-        uses: gradle/gradle-build-action@v2
-        with:
-          option: '--scan'
-      - name: Execute Gradle build
-        run: ./gradlew build
-      # Use the output from the build step to upload the jar file
-      - name: Upload artifact
-        # only upload on pull request
-        uses: actions/upload-artifact@v3
-        with:
-          name: v1.0.0-stable
-          path: build/releases
+    - name: Checkout project sources
+      uses: actions/checkout@v3
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+    - name: Run build with Gradle wrapper
+      run: ./gradlew build --scan
+    - name: Upload build reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: release
+        path: $0
