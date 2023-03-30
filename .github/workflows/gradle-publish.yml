@@ -12,6 +12,8 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           option: '--scan'
+      - name: Execute Gradle build
+        run: ./gradlew build
       # Use the output from the build step to upload the jar file
       - name: Upload artifact
         # only upload on pull request
